@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import morgan from 'morgan';
 import { env } from './src/config/env.js';
 import healthRoutes from './src/routes/healthRoutes.js';
 import contactRoutes from './src/routes/contactRoutes.js';
@@ -8,6 +9,8 @@ import { getHealth } from './src/controllers/healthController.js';
 import { notFoundHandler, errorHandler } from './src/middleware/errorHandler.js';
 
 const app = express();
+
+app.use(morgan('dev'));
 
 app.use(
     cors({
