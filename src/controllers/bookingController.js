@@ -16,10 +16,12 @@ export async function submitBooking(req, res) {
             site_type: String(req.body?.site_type || '').trim(),
             preferred_date: String(req.body?.preferred_date || '').trim(),
             time_slots: Array.isArray(req.body?.time_slots)
-                ? req.body.time_slots.map((slot) => String(slot).trim()).filter(Boolean)
+                ? req.body.time_slots
+                    .map((slot) => formatBookingTimeSlot(String(slot).trim()))
+                    .filter(Boolean)
                 : [],
             subscribe: Boolean(req.body?.subscribe),
-            submitted_at: String(req.body?.submitted_at || '').trim()
+            submitted_at: formatSubmittedAt(req.body?.submitted_at)
         };
 
         if (!submission.name || !submission.email || !submission.phone || !submission.address || !submission.description) {
@@ -57,4 +59,39 @@ export async function submitBooking(req, res) {
             error: error?.message || 'Failed to submit booking.'
         });
     }
+}
+
+function formatBookingTimeSlot(slot) {
+    const slotLabels = {
+        morning: 'Morning (8:00 AM - 11:30 AM)',
+        midday: 'Midday (12:00 PM - 2:30 PM)',
+        afternoon: 'Afternoon (3:00 PM - 5:30 PM)',
+        evening: 'Evening (6:00 PM - 9:00 PM)'
+    };
+
+    return slotLabels[slot] || slot;
+}
+
+function formatSubmittedAt(value) {
+    const rawValue = String(value || '').trim();
+
+    if (!rawValue) {
+        return '';
+    }
+
+    const date = new Date(rawValue);
+
+    if (Number.isNaN(date.getTime())) {
+        return rawValue;
+    }
+
+    return date.toLocaleString('en-AU', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    });
 }
