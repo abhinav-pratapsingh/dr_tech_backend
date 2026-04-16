@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import { submitBooking } from '../controllers/bookingController.js';
-import { asyncHandler } from '../utils/asyncHandler.js';
 
 const router = Router();
 
-router.post('/bookings', asyncHandler(submitBooking));
+router.post('/bookings', submitBooking);
 
 export default router;

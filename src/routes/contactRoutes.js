@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import { submitContact } from '../controllers/contactController.js';
-import { asyncHandler } from '../utils/asyncHandler.js';
 
 const router = Router();
 
-router.post('/contact', asyncHandler(submitContact));
+router.post('/contact', submitContact);
 
 export default router;
