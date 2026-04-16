@@ -103,11 +103,11 @@ function buildEmailLayout({ eyebrow, title, intro, rows, sections }) {
     const rowMarkup = rows
         .map(
             ({ label, value }) => `
-                <tr class="detail-row">
-                    <td class="detail-label" style="padding: 12px 16px; width: 180px; font-size: 13px; font-weight: 700; color: #6b7280; border-bottom: 1px solid #e5e7eb; vertical-align: top;">
+                <tr>
+                    <td style="padding: 12px 16px; width: 180px; font-size: 13px; font-weight: 700; color: #6b7280; border-bottom: 1px solid #e5e7eb; vertical-align: top;">
                         ${escapeHtml(label)}
                     </td>
-                    <td class="detail-value" style="padding: 12px 16px; font-size: 14px; color: #111827; border-bottom: 1px solid #e5e7eb; word-break: break-word;">
+                    <td style="padding: 12px 16px; font-size: 14px; color: #111827; border-bottom: 1px solid #e5e7eb;">
                         ${formatValue(value)}
                     </td>
                 </tr>
@@ -118,11 +118,11 @@ function buildEmailLayout({ eyebrow, title, intro, rows, sections }) {
     const sectionMarkup = sections
         .map(
             ({ title: sectionTitle, body }) => `
-                <div class="email-section" style="margin-top: 24px;">
-                    <div class="email-section-title" style="font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #e85d0c; margin-bottom: 10px;">
+                <div style="margin-top: 24px;">
+                    <div style="font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #e85d0c; margin-bottom: 10px;">
                         ${escapeHtml(sectionTitle)}
                     </div>
-                    <div class="email-section-box" style="background: #fff7f1; border: 1px solid #f7d7c4; border-radius: 14px; padding: 16px 18px; font-size: 14px; line-height: 1.7; color: #1f2937; word-break: break-word;">
+                    <div style="background: #fff7f1; border: 1px solid #f7d7c4; border-radius: 14px; padding: 16px 18px; font-size: 14px; line-height: 1.7; color: #1f2937;">
                         ${formatMultiline(body)}
                     </div>
                 </div>
@@ -131,110 +131,22 @@ function buildEmailLayout({ eyebrow, title, intro, rows, sections }) {
         .join('');
 
     return `
-        <style>
-            .email-shell {
-                margin: 0;
-                padding: 32px 16px;
-                background: #f4f6fb;
-                font-family: Arial, sans-serif;
-                color: #111827;
-            }
-
-            .email-card {
-                max-width: 720px;
-                margin: 0 auto;
-                background: #ffffff;
-                border-radius: 24px;
-                overflow: hidden;
-                border: 1px solid #e5e7eb;
-                box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
-            }
-
-            .email-header {
-                padding: 28px 32px;
-                background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-            }
-
-            .email-content {
-                padding: 28px 32px 32px;
-            }
-
-            .email-table {
-                width: 100%;
-                border-collapse: collapse;
-                border: 1px solid #e5e7eb;
-                border-radius: 16px;
-                overflow: hidden;
-            }
-
-            .email-card a {
-                color: inherit;
-                text-decoration: none;
-            }
-
-            @media only screen and (max-width: 600px) {
-                .email-shell {
-                    padding: 14px 8px !important;
-                }
-
-                .email-card {
-                    border-radius: 18px !important;
-                }
-
-                .email-header {
-                    padding: 22px 18px !important;
-                }
-
-                .email-content {
-                    padding: 20px 16px 24px !important;
-                }
-
-                .email-title {
-                    font-size: 24px !important;
-                }
-
-                .detail-label,
-                .detail-value {
-                    display: block !important;
-                    width: 100% !important;
-                    box-sizing: border-box !important;
-                }
-
-                .detail-label {
-                    padding: 12px 14px 4px !important;
-                    border-bottom: none !important;
-                }
-
-                .detail-value {
-                    padding: 0 14px 14px !important;
-                }
-
-                .email-section {
-                    margin-top: 18px !important;
-                }
-
-                .email-section-box {
-                    padding: 14px !important;
-                    border-radius: 12px !important;
-                }
-            }
-        </style>
-        <div class="email-shell" style="margin: 0; padding: 32px 16px; background: #f4f6fb; font-family: Arial, sans-serif; color: #111827;">
-            <div class="email-card" style="max-width: 720px; margin: 0 auto; background: #ffffff; border-radius: 24px; overflow: hidden; border: 1px solid #e5e7eb; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);">
-                <div class="email-header" style="padding: 28px 32px; background: linear-gradient(135deg, #111827 0%, #1f2937 100%);">
-                    <div class="email-eyebrow" style="font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #f8b48a; margin-bottom: 10px;">
+        <div style="margin: 0; padding: 32px 16px; background: #f4f6fb; font-family: Arial, sans-serif; color: #111827;">
+            <div style="max-width: 720px; margin: 0 auto; background: #ffffff; border-radius: 24px; overflow: hidden; border: 1px solid #e5e7eb; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);">
+                <div style="padding: 28px 32px; background: linear-gradient(135deg, #111827 0%, #1f2937 100%);">
+                    <div style="font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #f8b48a; margin-bottom: 10px;">
                         ${escapeHtml(eyebrow)}
                     </div>
-                    <div class="email-title" style="font-size: 30px; font-weight: 800; line-height: 1.2; color: #ffffff; margin-bottom: 10px;">
+                    <div style="font-size: 30px; font-weight: 800; line-height: 1.2; color: #ffffff; margin-bottom: 10px;">
                         ${escapeHtml(title)}
                     </div>
-                    <div class="email-intro" style="font-size: 14px; line-height: 1.7; color: rgba(255, 255, 255, 0.78);">
+                    <div style="font-size: 14px; line-height: 1.7; color: rgba(255, 255, 255, 0.78);">
                         ${escapeHtml(intro)}
                     </div>
                 </div>
 
-                <div class="email-content" style="padding: 28px 32px 32px;">
-                    <table class="email-table" role="presentation" style="width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden;">
+                <div style="padding: 28px 32px 32px;">
+                    <table role="presentation" style="width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden;">
                         ${rowMarkup}
                     </table>
                     ${sectionMarkup}
