@@ -14,7 +14,7 @@ app.use(morgan('dev'));
 
 app.use(
     cors({
-        origin: env.frontendUrl,
+        origin: [env.frontendUrl,"http://localhost:5173"],
         methods: ['GET', 'POST'],
         credentials: false
     })
